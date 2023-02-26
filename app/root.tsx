@@ -13,12 +13,20 @@ import { getUser } from "./session.server";
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
+  return [
+    { rel: "stylesheet", href: tailwindStylesheetUrl },
+    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: true },
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700&display=swap",
+    },
+  ];
 };
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Remix Notes",
+  title: "De Kleine Huisjes",
   viewport: "width=device-width,initial-scale=1",
 });
 
