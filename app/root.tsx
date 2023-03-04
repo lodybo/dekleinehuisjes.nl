@@ -1,5 +1,9 @@
-import type { LinksFunction, LoaderArgs, MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type {
+  LinksFunction,
+  LoaderArgs,
+  V2_MetaFunction as MetaFunction,
+} from '@remix-run/node';
+import { json } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -7,28 +11,34 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
+} from '@remix-run/react';
 
-import { getUser } from "./session.server";
-import tailwindStylesheetUrl from "./styles/tailwind.css";
+import { getUser } from './session.server';
+import tailwindStylesheetUrl from './styles/tailwind.css';
 
 export const links: LinksFunction = () => {
   return [
-    { rel: "stylesheet", href: tailwindStylesheetUrl },
-    { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: true },
+    { rel: 'stylesheet', href: tailwindStylesheetUrl },
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700&display=swap",
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com',
+      crossOrigin: 'anonymous',
+    },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700&display=swap',
     },
   ];
 };
 
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "De Kleine Huisjes",
-  viewport: "width=device-width,initial-scale=1",
-});
+export const meta: MetaFunction = () => [
+  {
+    charset: 'utf-8',
+    title: 'De Kleine Huisjes',
+    viewport: 'width=device-width,initial-scale=1',
+  },
+];
 
 export async function loader({ request }: LoaderArgs) {
   return json({
@@ -43,7 +53,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="h-full">
+      <body className="h-full text-neutral-400">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

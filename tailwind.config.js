@@ -21,6 +21,7 @@ module.exports = {
         400: '#7E1010',
       },
       secondary: {
+        50: '#FFD395',
         100: '#FFC26D',
         200: '#EE971F',
         DEFAULT: '#B26700',
@@ -34,10 +35,9 @@ module.exports = {
         300: '#524C47',
         400: '#37281C',
       },
-      interface: {
-        stone: '#2B303A',
-        white: '#FFFFFF',
-      },
+      stone: '#2B303A',
+      white: '#FFFFFF',
+      black: '#000000',
     },
     fontSize: {
       'body-s': ['12px', { lineHeight: '16px', fontWeight: FontSizes.Regular }],
@@ -83,6 +83,9 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Assistant', ...defaultTheme.fontFamily.sans],
+      },
+      boxShadow: {
+        DEFAULT: '0px 2px 4px 0px rgb(55 40 28 / 30%)',
       },
     },
   },
