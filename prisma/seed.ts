@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import type { Recipe } from '@prisma/client';
+import type { Recipe, Role } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -9,6 +9,7 @@ async function seed() {
   const kaylee = await createUser('kaylee');
   const tilai = await createUser('tilai');
   const levy = await createUser('levy');
+  await createUser('lody', 'ADMIN');
 
   // create 2 recipes for each user
   const recipes: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>[] = [
@@ -61,12 +62,13 @@ async function seed() {
   console.log(`Database has been seeded. 🌱`);
 }
 
-async function createUser(name: string) {
+async function createUser(name: string, role: Role = 'EDITOR') {
   return prisma.user.create({
     data: {
       name: capitalize(name),
       email: `${name}@dkh.nl`,
       bio: `Hello, I am ${name}`,
+      role,
       password: {
         create: {
           hash: await bcrypt.hash(name, 10),
