@@ -15,6 +15,7 @@ import {
 
 import { getUser } from './session.server';
 import tailwindStylesheetUrl from './styles/tailwind.css';
+import Navigation from '~/components/Navigation';
 
 export const links: LinksFunction = () => {
   return [
@@ -54,6 +55,7 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full text-neutral-400">
+        <Navigation />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
