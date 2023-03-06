@@ -1,6 +1,10 @@
-import { Link } from '@remix-run/react';
+import { Form, Link } from '@remix-run/react';
 import * as RadixNavigationMenu from '@radix-ui/react-navigation-menu';
+import { useOptionalUser } from '~/utils';
+import Button from '~/components/Button';
 export default function Navigation() {
+  const user = useOptionalUser();
+
   return (
     <RadixNavigationMenu.Root className="h-18 relative z-10 flex w-full">
       <RadixNavigationMenu.List className="m-0 flex h-full list-none place-items-center justify-between rounded bg-white p-5 shadow">
@@ -9,7 +13,15 @@ export default function Navigation() {
         </RadixNavigationMenu.Item>
 
         <RadixNavigationMenu.Item>
-          <NavigationLink href="/login">Inloggen</NavigationLink>
+          {user ? (
+            <Form method="post" action="/logout">
+              <Button submit naked>
+                Uitloggen
+              </Button>
+            </Form>
+          ) : (
+            <NavigationLink href="/login">Inloggen</NavigationLink>
+          )}
         </RadixNavigationMenu.Item>
       </RadixNavigationMenu.List>
     </RadixNavigationMenu.Root>
