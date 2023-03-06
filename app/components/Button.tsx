@@ -1,3 +1,4 @@
+import { Link } from '@remix-run/react';
 import type { ReactNode } from 'react';
 
 type Props = {
@@ -20,6 +21,11 @@ type Props = {
    * The content of the button.
    */
   children: ReactNode;
+
+  /**
+   * Whether the button is an anchor
+   */
+  href?: string;
 };
 
 export default function Button({
@@ -27,8 +33,9 @@ export default function Button({
   submit = false,
   primary = false,
   naked = false,
+  href = '',
 }: Props) {
-  let classes = '';
+  let classes = 'text-label-s outline-none ring-offset-2 focus:ring-2';
 
   if (!naked) {
     classes = `w-full rounded-full px-5 py-2 text-label-s uppercase shadow outline-none ring-offset-2 focus:ring-2 ${
@@ -39,7 +46,7 @@ export default function Button({
   }
   return (
     <button className={classes} type={submit ? 'submit' : 'button'}>
-      {children}
+      {href ? <Link to={href}>{children}</Link> : children}
     </button>
   );
 }

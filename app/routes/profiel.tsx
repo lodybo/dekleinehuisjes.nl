@@ -55,7 +55,7 @@ export default function ProfielLayout() {
         </ul>
       </div>
 
-      <main className="profile-main">
+      <main className="profile-main pt-5">
         <Outlet />
       </main>
     </div>
