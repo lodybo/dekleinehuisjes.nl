@@ -39,7 +39,7 @@ export default function Navigation() {
 type LinkProps = RadixNavigationMenu.NavigationMenuLinkProps;
 const NavigationLink = ({ href = '', children }: LinkProps) => {
   return (
-    <RadixNavigationMenu.Link>
+    <RadixNavigationMenu.Link asChild>
       <Link className="text-stone" to={href}>
         {children}
       </Link>
