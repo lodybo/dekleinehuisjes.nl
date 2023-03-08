@@ -21,7 +21,7 @@ import type { LoaderArgs } from '@remix-run/node';
 import type { FitEnum } from 'sharp';
 import sharp from 'sharp';
 
-const ASSETS_ROOT = 'gear';
+const ASSETS_ROOT = 'images';
 
 interface ResizeParams {
   src: string;

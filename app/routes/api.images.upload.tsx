@@ -1,7 +1,10 @@
-import type { ActionArgs } from '@remix-run/node';
+import type { ActionArgs, NodeOnDiskFile } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { unstable_parseMultipartFormData } from '@remix-run/node';
 import { uploadHandler } from '~/models/images.server';
+import { getErrorMessage } from '~/utils';
+import { updateUserAvatar } from '~/models/user.server';
+import { requireUser } from '~/session.server';
 
 interface UploadResponse {
   ok: boolean;
@@ -19,11 +22,35 @@ interface ErrorResponse extends UploadResponse {
 export type ImageUploadResponse = SuccessResponse | ErrorResponse;
 
 export async function action({ request }: ActionArgs) {
-  await unstable_parseMultipartFormData(request, uploadHandler);
+  const user = await requireUser(request);
 
-  await sleep(2000);
+  try {
+    const formData = await unstable_parseMultipartFormData(
+      request,
+      uploadHandler
+    );
+
+    const avatarImage = formData.get('avatar-image') as NodeOnDiskFile | null;
+    const avatarField = formData.get('avatar-field') as NodeOnDiskFile | null;
+
+    console.log({ avatarImage, avatarField });
+    let avatarURL: string;
+    if (avatarImage) {
+      avatarURL = avatarImage.name;
+    } else if (avatarField) {
+      avatarURL = avatarField.name;
+    } else {
+      return json<ImageUploadResponse>({
+        ok: false,
+        message: 'Er is geen afbeelding geüpload',
+      });
+    }
+
+    await updateUserAvatar(user.email, avatarURL);
+  } catch (e) {
+    const message = getErrorMessage(e);
+    return json<ImageUploadResponse>({ ok: false, message });
+  }
 
   return json<ImageUploadResponse>({ ok: true });
 }
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

@@ -1,6 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import Button from '~/components/Button';
 import Icon from '~/components/Icon';
+import CloseButton from '~/components/CloseButton';
 
 type Props = {
   /**
@@ -58,15 +59,9 @@ export default function Modal({
           <Dialog.Description className="mt-5 mb-7 text-stone">
             {description}
           </Dialog.Description>
-
           {children}
-          <Dialog.Close asChild>
-            <button
-              className="absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] cursor-pointer appearance-none items-center justify-center rounded-full text-stone opacity-50 transition-opacity hover:opacity-100 focus:shadow-[0_0_0_2px] focus:outline-none"
-              aria-label="Close"
-            >
-              <Icon name="circle-xmark" prefix="far" />
-            </button>
+          <Dialog.Close>
+            <CloseButton />
           </Dialog.Close>
         </Dialog.Content>
       </Dialog.Portal>

@@ -33,12 +33,17 @@ export default function Avatar({
     .map((n) => n[0])
     .join('');
 
+  const query = new URLSearchParams();
+
   let sizeClass = 'h-11 w-11';
   if (size === 'medium') {
     sizeClass = 'h-16 w-16';
   } else if (size === 'large') {
     sizeClass = 'h-20 w-20';
   }
+  const dimension = parseInt(sizeClass.split(' ')[1].split('-')[1]) * 4;
+  query.set('w', dimension.toString());
+  query.set('h', dimension.toString());
 
   return (
     <div className="flex flex-row items-center gap-5">
@@ -47,13 +52,13 @@ export default function Avatar({
       >
         <RadixAvatar.Image
           className="h-full w-full rounded-[inherit] object-cover"
-          src={image}
+          src={`/image/${image}?${query.toString()}&fit=cover`}
           alt={name}
         />
 
         <RadixAvatar.Fallback
           className="flex h-full w-full items-center justify-center bg-neutral-200 text-display-s text-white"
-          delayMs={600}
+          delayMs={250}
         >
           {fallbackName}
         </RadixAvatar.Fallback>

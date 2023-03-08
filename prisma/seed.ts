@@ -68,6 +68,7 @@ async function createUser(name: string, role: Role = 'EDITOR') {
       name: capitalize(name),
       email: `${name}@dkh.nl`,
       bio: `Hello, I am ${name}`,
+      avatar: 'https://api.dicebear.com/5.x/avataaars/svg',
       role,
       password: {
         create: {

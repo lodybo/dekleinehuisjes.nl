@@ -19,7 +19,12 @@ export default function ProfileEdit() {
       <div className="pt-5">
         <div className="flex flex-col gap-5">
           <div className="flex flex-row items-center gap-5">
-            <Avatar name={user.name} size="large" showName />
+            <Avatar
+              name={user.name}
+              image={user.avatar}
+              size="large"
+              showName
+            />
           </div>
 
           <AvatarUploadForm />

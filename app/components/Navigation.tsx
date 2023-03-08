@@ -12,17 +12,25 @@ export default function Navigation() {
           <NavigationLink href="/">De Kleine Huisjes</NavigationLink>
         </RadixNavigationMenu.Item>
 
-        <RadixNavigationMenu.Item>
+        <div className="flex flex-row gap-5">
           {user ? (
-            <Form method="post" action="/logout">
-              <Button submit naked>
-                Uitloggen
-              </Button>
-            </Form>
-          ) : (
-            <NavigationLink href="/login">Inloggen</NavigationLink>
-          )}
-        </RadixNavigationMenu.Item>
+            <RadixNavigationMenu.Item>
+              <NavigationLink href="/profiel">Mijn profiel</NavigationLink>
+            </RadixNavigationMenu.Item>
+          ) : null}
+
+          <RadixNavigationMenu.Item>
+            {user ? (
+              <Form method="post" action="/logout">
+                <Button submit naked>
+                  Uitloggen
+                </Button>
+              </Form>
+            ) : (
+              <NavigationLink href="/login">Inloggen</NavigationLink>
+            )}
+          </RadixNavigationMenu.Item>
+        </div>
       </RadixNavigationMenu.List>
     </RadixNavigationMenu.Root>
   );
