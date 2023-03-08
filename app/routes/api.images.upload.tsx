@@ -33,7 +33,6 @@ export async function action({ request }: ActionArgs) {
     const avatarImage = formData.get('avatar-image') as NodeOnDiskFile | null;
     const avatarField = formData.get('avatar-field') as NodeOnDiskFile | null;
 
-    console.log({ avatarImage, avatarField });
     let avatarURL: string;
     if (avatarImage) {
       avatarURL = avatarImage.name;
