@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+@layer base {
   nav > div {
     width: 100%;
+  }
+
+  input[type=file]::-webkit-file-upload-button,
+  input[type=file]::file-selector-button {
+    @apply appearance-none block px-5 py-2 border-none rounded-full text-label-s uppercase shadow bg-secondary-50 text-secondary-300 cursor-pointer;
   }
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import type { ActionArgs, LoaderArgs, V2_MetaFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 import { Form, Link, useActionData, useSearchParams } from '@remix-run/react';
-import Input from '~/components/input';
+import Input from '~/components/Input';
 
 import { verifyLogin } from '~/models/user.server';
 import { createUserSession, getUserId } from '~/session.server';
@@ -82,14 +82,9 @@ export default function LoginPage() {
       <div className="mx-auto w-full max-w-md px-8">
         <Form method="post" className="space-y-6" noValidate>
           <div>
-            <label
-              htmlFor="email"
-              className="text-sm text-gray-700 block font-medium"
-            >
-              E-mailadress
-            </label>
             <div className="mt-1">
               <Input
+                label="E-mailadres"
                 ref={emailRef}
                 id="email"
                 required
@@ -99,7 +94,6 @@ export default function LoginPage() {
                 autoComplete="email"
                 aria-invalid={actionData?.errors?.email ? true : undefined}
                 aria-describedby="email-error"
-                className="border-gray-500 text-lg w-full rounded border px-2 py-1"
               />
               {actionData?.errors?.email && (
                 <div className="text-red-700 pt-1" id="email-error">
@@ -110,14 +104,9 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="text-sm text-gray-700 block font-medium"
-            >
-              Wachtwoord
-            </label>
             <div className="mt-1">
               <Input
+                label="Wachtwoord"
                 id="password"
                 ref={passwordRef}
                 name="password"
@@ -125,7 +114,6 @@ export default function LoginPage() {
                 autoComplete="current-password"
                 aria-invalid={actionData?.errors?.password ? true : undefined}
                 aria-describedby="password-error"
-                className="border-gray-500 text-lg w-full rounded border px-2 py-1"
               />
               {actionData?.errors?.password && (
                 <div className="text-red-700 pt-1" id="password-error">

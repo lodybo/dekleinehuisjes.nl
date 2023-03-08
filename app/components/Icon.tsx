@@ -1,8 +1,14 @@
 import type { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 import { icon, library } from '@fortawesome/fontawesome-svg-core';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faFileLines,
+  faTrashAlt,
+  faStroopwafel,
+} from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 
-library.add(faCheck);
+library.add(faCheck, faFileLines, faTrashAlt, faStroopwafel, faCircleXmark);
 
 type Props = {
   name: IconName;

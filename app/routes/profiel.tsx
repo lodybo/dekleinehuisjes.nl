@@ -1,4 +1,4 @@
-import type { LinkProps } from '@remix-run/react';
+import { LinkProps, useLocation } from '@remix-run/react';
 import { Link, Outlet, useLoaderData } from '@remix-run/react';
 import type {
   V2_MetaFunction as MetaFunction,
@@ -27,12 +27,38 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export default function ProfielLayout() {
+  const location = useLocation();
   const { user } = useLoaderData<typeof loader>();
+
+  let title: string;
+  switch (location.pathname) {
+    case '/profiel/recepten/nieuw':
+      title = 'Nieuw recept';
+      break;
+    case '/profiel/recepten':
+      title = 'Mijn recepten';
+      break;
+    case '/profiel/posts':
+      title = 'Mijn posts';
+      break;
+    case '/profiel/bewerken':
+      title = 'Bewerk je profiel';
+      break;
+    case '/profiel/instellingen':
+      title = 'Instellingen';
+      break;
+    case '/admin':
+      title = 'Admin';
+      break;
+    default:
+      title = `Hallo, ${user.name}!`;
+      break;
+  }
 
   return (
     <div className="profile-screen mt-5 px-5">
       <div className="profile-header">
-        <h1 className="text-center text-display-m">Hallo, {user.name}!</h1>
+        <h1 className="text-center text-display-m">{title}</h1>
       </div>
 
       <div className="profile-sidebar rounded-xl bg-primary-200 px-7 py-5 text-neutral-300">
