@@ -125,7 +125,7 @@ function readFileAsStream(src: string): ReadStream {
   if (!fileStat.isFile()) {
     throw new Error(`${srcPath} is not a file`);
   }
-  console.log('img exists');
+
   // create a readable stream from the image file
   return createReadStream(path.join(ASSETS_ROOT, src));
 

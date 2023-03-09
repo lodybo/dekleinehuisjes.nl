@@ -4,12 +4,12 @@ import Button from '~/components/Button';
 import FileInput from '~/components/FileInput';
 import FileDropField from '~/components/FileDropField';
 import Modal from '~/components/Modal';
-import type { ImageUploadResponse } from '~/routes/api.images.upload';
 import Spinner from '~/components/Spinner';
 import Notification from '~/components/Notification';
+import { APIResponse } from '~/types/APIResponse';
 
 export default function AvatarUploadForm() {
-  const upload = useFetcher<ImageUploadResponse>();
+  const upload = useFetcher<APIResponse>();
   const [open, setOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
 

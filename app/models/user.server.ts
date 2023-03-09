@@ -47,10 +47,7 @@ export async function verifyLogin(
     return null;
   }
 
-  const isValid = await bcrypt.compare(
-    password,
-    userWithPassword.password.hash
-  );
+  const isValid = bcrypt.compare(password, userWithPassword.password.hash);
 
   if (!isValid) {
     return null;
@@ -68,5 +65,12 @@ export async function updateUserAvatar(
   return prisma.user.update({
     where: { email },
     data: { avatar },
+  });
+}
+
+export async function updateUserBio(email: User['email'], bio: User['bio']) {
+  return prisma.user.update({
+    where: { email },
+    data: { bio },
   });
 }

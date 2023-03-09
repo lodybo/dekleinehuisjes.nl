@@ -1,4 +1,5 @@
-import { LinkProps, useLocation } from '@remix-run/react';
+import type { LinkProps } from '@remix-run/react';
+import { useLocation } from '@remix-run/react';
 import { Link, Outlet, useLoaderData } from '@remix-run/react';
 import type {
   V2_MetaFunction as MetaFunction,
@@ -58,7 +59,7 @@ export default function ProfielLayout() {
   return (
     <div className="profile-screen mt-5 px-5">
       <div className="profile-header">
-        <h1 className="text-center text-display-m">{title}</h1>
+        <h1 className="text-center text-display-l">{title}</h1>
       </div>
 
       <div className="profile-sidebar rounded-xl bg-primary-200 px-7 py-5 text-neutral-300">

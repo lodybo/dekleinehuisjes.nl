@@ -1,25 +1,10 @@
 import type { ActionArgs, NodeOnDiskFile } from '@remix-run/node';
-import { json } from '@remix-run/node';
-import { unstable_parseMultipartFormData } from '@remix-run/node';
+import { json, unstable_parseMultipartFormData } from '@remix-run/node';
 import { uploadHandler } from '~/models/images.server';
 import { getErrorMessage } from '~/utils';
 import { updateUserAvatar } from '~/models/user.server';
 import { requireUser } from '~/session.server';
-
-interface UploadResponse {
-  ok: boolean;
-}
-
-interface SuccessResponse extends UploadResponse {
-  ok: true;
-}
-
-interface ErrorResponse extends UploadResponse {
-  ok: false;
-  message: string;
-}
-
-export type ImageUploadResponse = SuccessResponse | ErrorResponse;
+import type { APIResponse } from '~/types/APIResponse';
 
 export async function action({ request }: ActionArgs) {
   const user = await requireUser(request);
@@ -39,7 +24,7 @@ export async function action({ request }: ActionArgs) {
     } else if (avatarField) {
       avatarURL = avatarField.name;
     } else {
-      return json<ImageUploadResponse>({
+      return json<APIResponse>({
         ok: false,
         message: 'Er is geen afbeelding geüpload',
       });
@@ -48,8 +33,8 @@ export async function action({ request }: ActionArgs) {
     await updateUserAvatar(user.email, avatarURL);
   } catch (e) {
     const message = getErrorMessage(e);
-    return json<ImageUploadResponse>({ ok: false, message });
+    return json<APIResponse>({ ok: false, message });
   }
 
-  return json<ImageUploadResponse>({ ok: true });
+  return json<APIResponse>({ ok: true });
 }
