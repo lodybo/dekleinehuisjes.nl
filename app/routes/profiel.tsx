@@ -1,6 +1,6 @@
 import type { LinkProps } from '@remix-run/react';
-import { useLocation } from '@remix-run/react';
-import { Link, Outlet, useLoaderData } from '@remix-run/react';
+import { useLocation, NavLink } from '@remix-run/react';
+import { Outlet, useLoaderData } from '@remix-run/react';
 import type {
   V2_MetaFunction as MetaFunction,
   LinksFunction,
@@ -10,7 +10,7 @@ import { json } from '@remix-run/node';
 
 import profileStylesUrl from '~/styles/profile.css';
 import { requireUser } from '~/session.server';
-import Line from '~/components/Line';
+import Separator from '~/components/Separator';
 
 export let meta: MetaFunction = () => [
   { title: 'Profiel' },
@@ -62,7 +62,7 @@ export default function ProfielLayout() {
         <h1 className="text-center text-display-l">{title}</h1>
       </div>
 
-      <div className="profile-sidebar rounded-xl bg-primary-200 px-7 py-5 text-neutral-300">
+      <div className="profile-sidebar rounded-xl bg-primary-200 px-7 py-5 text-secondary-400">
         <h2 className="text-display-s">Menu</h2>
         <ul className="mt-2.5 mb-5 space-y-2.5">
           <MenuLink to="/profiel/recepten/nieuw" large>
@@ -70,12 +70,12 @@ export default function ProfielLayout() {
           </MenuLink>
           <MenuLink to="/profiel/recepten">Mijn recepten</MenuLink>
           <MenuLink to="/profiel/posts">Mijn posts</MenuLink>
-          <Line />
+          <Separator />
           <MenuLink to="/profiel/bewerken">Mijn profiel</MenuLink>
           <MenuLink to="/profiel/instellingen">Instellingen</MenuLink>
           {user.role === 'ADMIN' && (
             <>
-              <Line />
+              <Separator color="bg-primary-100" />
               <MenuLink to="/admin">Admin</MenuLink>
             </>
           )}
@@ -94,6 +94,12 @@ type MenuLinkProps = LinkProps & {
 };
 const MenuLink = ({ to, children, large = false }: MenuLinkProps) => (
   <li className={`${large ? 'mb-1 text-title-l' : ''}`}>
-    <Link to={to}>{children}</Link>
+    <NavLink
+      className={({ isActive }) => (isActive ? 'text-primary-400' : '')}
+      to={to}
+      end
+    >
+      {children}
+    </NavLink>
   </li>
 );

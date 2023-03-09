@@ -1,4 +1,4 @@
-import { Form, Link } from '@remix-run/react';
+import { Form, NavLink } from '@remix-run/react';
 import * as RadixNavigationMenu from '@radix-ui/react-navigation-menu';
 import { useOptionalUser } from '~/utils';
 import Button from '~/components/Button';
@@ -39,10 +39,13 @@ export default function Navigation() {
 type LinkProps = RadixNavigationMenu.NavigationMenuLinkProps;
 const NavigationLink = ({ href = '', children }: LinkProps) => {
   return (
-    <RadixNavigationMenu.Link asChild>
-      <Link className="text-stone" to={href}>
+    <RadixNavigationMenu.Link>
+      <NavLink
+        className={({ isActive }) => (isActive ? 'text-primary' : 'text-stone')}
+        to={href}
+      >
         {children}
-      </Link>
+      </NavLink>
     </RadixNavigationMenu.Link>
   );
 };
