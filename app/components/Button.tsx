@@ -41,6 +41,11 @@ type Props = {
    * The width of the button.
    */
   width?: string;
+
+  /**
+   * Whether the button signals a destructive action.
+   */
+  danger?: boolean;
 };
 
 export default function Button({
@@ -52,12 +57,15 @@ export default function Button({
   onClick,
   disabled = false,
   width = 'w-full',
+  danger = false,
 }: Props) {
   let classes = 'outline-none ring-offset-2 focus:ring-2';
 
   if (!naked) {
     classes = `${width} rounded-full px-5 py-2 text-label-s uppercase shadow outline-none ring-offset-2 ring-neutral focus:ring-2 disabled:opacity-50 ${
-      primary
+      danger
+        ? 'bg-red text-white'
+        : primary
         ? 'bg-primary text-neutral-400'
         : 'bg-secondary-50 text-secondary-300'
     }`;

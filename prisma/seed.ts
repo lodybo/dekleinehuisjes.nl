@@ -72,7 +72,7 @@ async function createUser(name: string, role: Role = 'EDITOR') {
       role,
       password: {
         create: {
-          hash: await bcrypt.hash(name, 10),
+          hash: await bcrypt.hash(`${name}iscool`, 10),
         },
       },
     },

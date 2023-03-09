@@ -26,6 +26,10 @@ model User {
   updatedAt DateTime @updatedAt
 
   password Password?
+
+  authEnabled Boolean @default(false)
+  authSecret  String?
+
   recipies Recipe[]
 }
 

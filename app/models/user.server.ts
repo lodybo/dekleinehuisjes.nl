@@ -1,16 +1,44 @@
-import type { Password, User } from '@prisma/client';
+import type { Password, User as PrismaUser } from '@prisma/client';
+import type { SerializeFrom } from '@remix-run/node';
 import bcrypt from 'bcryptjs';
 
 import { prisma } from '~/db.server';
 
-export type { User } from '@prisma/client';
+export type User = SerializeFrom<Omit<PrismaUser, 'authSecret'>>;
 
 export async function getUserById(id: User['id']) {
-  return prisma.user.findUnique({ where: { id } });
+  return prisma.user.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatar: true,
+      bio: true,
+      authEnabled: true,
+      authSecret: true,
+      recipies: true,
+      role: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
 }
 
 export async function getUserByEmail(email: User['email']) {
-  return prisma.user.findUnique({ where: { email } });
+  return prisma.user.findUnique({
+    where: { email },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatar: true,
+      bio: true,
+      authEnabled: true,
+      recipies: true,
+      role: true,
+    },
+  });
 }
 
 export async function createUser(email: User['email'], password: string) {
@@ -47,7 +75,11 @@ export async function verifyLogin(
     return null;
   }
 
-  const isValid = bcrypt.compare(password, userWithPassword.password.hash);
+  // compare returns a Promise
+  const isValid = await bcrypt.compare(
+    password,
+    userWithPassword.password.hash
+  );
 
   if (!isValid) {
     return null;
@@ -107,5 +139,19 @@ export async function updateUserName(email: User['email'], name: User['name']) {
   return prisma.user.update({
     where: { email },
     data: { name },
+  });
+}
+
+export async function enableUserAuth(email: User['email'], secret: string) {
+  return prisma.user.update({
+    where: { email },
+    data: { authEnabled: true, authSecret: secret },
+  });
+}
+
+export async function disableUserAuth(email: User['email']) {
+  return prisma.user.update({
+    where: { email },
+    data: { authEnabled: false, authSecret: null },
   });
 }

@@ -13,3 +13,7 @@ export function validateUserPassword(password: unknown): password is string {
 export function validateName(name: unknown): name is string {
   return typeof name === 'string' && name.length !== 0;
 }
+
+export function validateAuthToken(token: unknown): token is string {
+  return typeof token === 'string' && token.length >= 6;
+}
