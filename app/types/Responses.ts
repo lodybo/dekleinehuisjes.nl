@@ -12,3 +12,10 @@ interface ErrorResponse extends BaseAPIResponse {
 }
 
 export type APIResponse = SuccessResponse | ErrorResponse;
+
+export type ErrorFields = Record<string, string>;
+interface FormErrorResponse extends BaseAPIResponse {
+  fields: ErrorFields;
+}
+
+export type FormResponse = SuccessResponse | FormErrorResponse;

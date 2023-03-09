@@ -3,7 +3,7 @@ type Props = JSX.IntrinsicElements['input'] & {
 };
 
 const Input = ({ label, className, ...props }: Props) => (
-  <label className="flex cursor-pointer flex-col gap-1 text-stone">
+  <label className="flex w-full cursor-pointer flex-col gap-1 text-stone">
     {label}
 
     <input

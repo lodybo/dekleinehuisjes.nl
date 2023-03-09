@@ -74,3 +74,38 @@ export async function updateUserBio(email: User['email'], bio: User['bio']) {
     data: { bio },
   });
 }
+
+export async function updateUserPassword(
+  email: User['email'],
+  password: string
+) {
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  return prisma.user.update({
+    where: { email },
+    data: {
+      password: {
+        update: {
+          hash: hashedPassword,
+        },
+      },
+    },
+  });
+}
+
+export async function updateUserEmail(
+  currentEmail: User['email'],
+  newEmail: User['email']
+) {
+  return prisma.user.update({
+    where: { email: currentEmail },
+    data: { email: newEmail },
+  });
+}
+
+export async function updateUserName(email: User['email'], name: User['name']) {
+  return prisma.user.update({
+    where: { email },
+    data: { name },
+  });
+}

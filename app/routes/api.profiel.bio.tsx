@@ -3,7 +3,7 @@ import { json } from '@remix-run/node';
 import invariant from 'tiny-invariant';
 import { requireUser } from '~/session.server';
 import { updateUserBio } from '~/models/user.server';
-import type { APIResponse } from '~/types/APIResponse';
+import type { APIResponse } from '~/types/Responses';
 import { getErrorMessage } from '~/utils';
 
 export async function action({ request, params }: ActionArgs) {

@@ -66,10 +66,6 @@ export function useUser(): User {
   return maybeUser;
 }
 
-export function validateEmail(email: unknown): email is string {
-  return typeof email === 'string' && email.length > 3 && email.includes('@');
-}
-
 export function getErrorMessage(err: unknown) {
   // https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript
   let message;

@@ -6,7 +6,7 @@ import FileDropField from '~/components/FileDropField';
 import Modal from '~/components/Modal';
 import Spinner from '~/components/Spinner';
 import Notification from '~/components/Notification';
-import { APIResponse } from '~/types/APIResponse';
+import { APIResponse } from '~/types/Responses';
 
 export default function AvatarUploadForm() {
   const upload = useFetcher<APIResponse>();

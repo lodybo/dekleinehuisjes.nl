@@ -2,7 +2,7 @@ import { useFetcher } from '@remix-run/react';
 import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
 import { useEffect, useState } from 'react';
 import Button from '~/components/Button';
-import type { APIResponse } from '~/types/APIResponse';
+import type { APIResponse } from '~/types/Responses';
 import Spinner from '~/components/Spinner';
 
 type Props = {

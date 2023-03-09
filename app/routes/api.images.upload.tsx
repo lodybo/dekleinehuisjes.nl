@@ -4,7 +4,7 @@ import { uploadHandler } from '~/models/images.server';
 import { getErrorMessage } from '~/utils';
 import { updateUserAvatar } from '~/models/user.server';
 import { requireUser } from '~/session.server';
-import type { APIResponse } from '~/types/APIResponse';
+import type { APIResponse } from '~/types/Responses';
 
 export async function action({ request }: ActionArgs) {
   const user = await requireUser(request);

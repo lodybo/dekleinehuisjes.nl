@@ -6,9 +6,10 @@ import Input from '~/components/Input';
 
 import { verifyLogin } from '~/models/user.server';
 import { createUserSession, getUserId } from '~/session.server';
-import { safeRedirect, validateEmail } from '~/utils';
+import { safeRedirect } from '~/utils';
 import Checkbox from '~/components/Checkbox';
 import Button from '~/components/Button';
+import { validateEmail, validateUserPassword } from '~/validations';
 
 export async function loader({ request }: LoaderArgs) {
   const userId = await getUserId(request);
@@ -30,7 +31,7 @@ export async function action({ request }: ActionArgs) {
     );
   }
 
-  if (typeof password !== 'string' || password.length === 0) {
+  if (!validateUserPassword(password)) {
     return json(
       { errors: { password: 'Het wachtwoord is verplicht', email: null } },
       { status: 400 }
