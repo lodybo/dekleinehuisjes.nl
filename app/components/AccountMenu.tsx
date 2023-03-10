@@ -19,7 +19,7 @@ export default function AccountMenu({
   return (
     <div
       className={`${
-        forAdmin ? 'bg-secondary-200' : 'bg-primary-200'
+        forAdmin ? 'bg-secondary-100' : 'bg-primary-200'
       } rounded-xl px-7 py-5 text-secondary-400 [grid-area:sidebar]`}
     >
       <h2 className="text-display-s">Menu</h2>

@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from '@remix-run/react';
+import { useLocation } from '@remix-run/react';
 import type {
   LoaderArgs,
   V2_MetaFunction as MetaFunction,
@@ -40,7 +40,7 @@ export default function AdminLayout() {
   }
 
   return (
-    <AccountLayout title={title} forAdmin outlet={<Outlet />}>
+    <AccountLayout title={title} forAdmin>
       <MenuLink to="/admin/gebruikers">Gebruikers beheren</MenuLink>
 
       <MenuLink to="/admin/gebruikers/nieuw">
