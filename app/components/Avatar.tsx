@@ -41,9 +41,16 @@ export default function Avatar({
   } else if (size === 'large') {
     sizeClass = 'h-20 w-20';
   }
-  const dimension = parseInt(sizeClass.split(' ')[1].split('-')[1]) * 4;
-  query.set('w', dimension.toString());
-  query.set('h', dimension.toString());
+
+  let imageUrl: string;
+  if (!image?.startsWith('http')) {
+    const dimension = parseInt(sizeClass.split(' ')[1].split('-')[1]) * 4;
+    query.set('w', dimension.toString());
+    query.set('h', dimension.toString());
+    imageUrl = `/image/${image}?${query.toString()}&fit=cover`;
+  } else {
+    imageUrl = image;
+  }
 
   return (
     <div className="flex flex-row items-center gap-5">
@@ -52,7 +59,7 @@ export default function Avatar({
       >
         <RadixAvatar.Image
           className="h-full w-full rounded-[inherit] object-cover"
-          src={`/image/${image}?${query.toString()}&fit=cover`}
+          src={imageUrl}
           alt={name}
         />
 

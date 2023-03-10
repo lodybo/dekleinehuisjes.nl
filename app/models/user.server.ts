@@ -41,6 +41,23 @@ export async function getUserByEmail(email: User['email']) {
   });
 }
 
+export async function getUsers() {
+  return prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatar: true,
+      bio: true,
+      authEnabled: true,
+      recipies: true,
+      role: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+}
+
 export async function createUser(email: User['email'], password: string) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -139,6 +156,19 @@ export async function updateUserName(email: User['email'], name: User['name']) {
   return prisma.user.update({
     where: { email },
     data: { name },
+  });
+}
+
+export async function updateUserRole(id: User['id'], role: User['role']) {
+  return prisma.user.update({
+    where: { id },
+    data: { role },
+  });
+}
+
+export async function countAdminUsers() {
+  return prisma.user.count({
+    where: { role: 'ADMIN' },
   });
 }
 

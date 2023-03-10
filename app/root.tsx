@@ -4,18 +4,11 @@ import type {
   V2_MetaFunction as MetaFunction,
 } from '@remix-run/node';
 import { json } from '@remix-run/node';
-import {
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from '@remix-run/react';
 
 import { getUser } from './session.server';
 import tailwindStylesheetUrl from './styles/tailwind.css';
-import Navigation from '~/components/Navigation';
+import Document from '~/components/Document';
+import { Outlet } from '@remix-run/react';
 
 export const links: LinksFunction = () => {
   return [
@@ -49,18 +42,20 @@ export async function loader({ request }: LoaderArgs) {
 
 export default function App() {
   return (
-    <html lang="en" className="h-full">
-      <head>
-        <Meta />
-        <Links />
-      </head>
-      <body className="h-full text-neutral-400">
-        <Navigation />
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </body>
-    </html>
+    <Document>
+      <Outlet />
+    </Document>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+  return (
+    <Document>
+      <div className="flex h-full flex-col items-center justify-center">
+        <h1 className="text-4xl font-bold">Error</h1>
+        <p className="mt-4">Something went wrong</p>
+      </div>
+    </Document>
   );
 }

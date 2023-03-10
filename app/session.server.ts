@@ -82,6 +82,15 @@ export async function requireUser(request: Request) {
   throw await logout(request);
 }
 
+export async function requireAdminUser(request: Request) {
+  const user = await requireUser(request);
+  if (user.role === 'ADMIN') {
+    return user;
+  }
+
+  return redirect('/profiel');
+}
+
 export async function createUserSession({
   request,
   userId,

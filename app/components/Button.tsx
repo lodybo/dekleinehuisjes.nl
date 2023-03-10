@@ -46,6 +46,26 @@ type Props = {
    * Whether the button signals a destructive action.
    */
   danger?: boolean;
+
+  /**
+   * The form method of the button.
+   */
+  formMethod?: 'get' | 'post';
+
+  /**
+   * The form action of the button.
+   */
+  formAction?: string;
+
+  /**
+   * The form name of the button.
+   */
+  formName?: string;
+
+  /**
+   * The form of the button.
+   */
+  form?: string;
 };
 
 export default function Button({
@@ -58,6 +78,10 @@ export default function Button({
   disabled = false,
   width = 'w-full',
   danger = false,
+  formMethod,
+  formAction,
+  formName,
+  form,
 }: Props) {
   let classes = 'outline-none ring-offset-2 focus:ring-2';
 
@@ -76,6 +100,10 @@ export default function Button({
       className={classes}
       type={submit ? 'submit' : 'button'}
       disabled={disabled}
+      formMethod={formMethod}
+      formAction={formAction}
+      name={formName}
+      form={form}
     >
       {href ? <Link to={href}>{children}</Link> : children}
     </button>
