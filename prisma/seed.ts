@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { Post, PrismaClient } from '@prisma/client';
 import type { Recipe, Role } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
@@ -59,6 +59,43 @@ async function seed() {
     await prisma.recipe.create({ data: recipe });
   }
 
+  // create 2 posts for each user
+  const posts: Omit<Post, 'id' | 'createdAt' | 'updatedAt'>[] = [
+    {
+      title: 'Hello world',
+      content: 'This is my first post',
+      slug: 'hello-world',
+      published: false,
+      authorId: arantja.id,
+    },
+    {
+      title: 'Lorem ipsum',
+      content:
+        'Lorem <strong>ipsum</strong> dolor sit amet, consectetur adipiscing elit.',
+      slug: 'lorem-ipsum',
+      published: true,
+      authorId: kaylee.id,
+    },
+    {
+      title: 'Dolor sit amet',
+      content: 'Dolor sit amet, consectetur adipiscing elit.',
+      slug: 'dolor-sit-amet',
+      published: true,
+      authorId: tilai.id,
+    },
+    {
+      title: 'Consectetur adipiscing',
+      content: 'Consectetur adipiscing elit.',
+      slug: 'consectetur-adipiscing',
+      published: true,
+      authorId: levy.id,
+    },
+  ];
+
+  for (const post of posts) {
+    await createPost(post);
+  }
+
   console.log(`Database has been seeded. 🌱`);
 }
 
@@ -74,6 +111,26 @@ async function createUser(name: string, role: Role = 'EDITOR') {
         create: {
           hash: await bcrypt.hash(`${name}iscool`, 10),
         },
+      },
+    },
+  });
+}
+
+async function createPost({
+  title,
+  content,
+  slug,
+  published,
+  authorId,
+}: Omit<Post, 'id' | 'createdAt' | 'updatedAt'>) {
+  return prisma.post.create({
+    data: {
+      title,
+      content,
+      slug,
+      published,
+      author: {
+        connect: { id: authorId },
       },
     },
   });
