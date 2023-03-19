@@ -6,9 +6,19 @@ import {
   faTrashAlt,
   faStroopwafel,
 } from '@fortawesome/free-solid-svg-icons';
-import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+import {
+  faCircleXmark,
+  faPenToSquare,
+} from '@fortawesome/free-regular-svg-icons';
 
-library.add(faCheck, faFileLines, faTrashAlt, faStroopwafel, faCircleXmark);
+library.add(
+  faCheck,
+  faFileLines,
+  faTrashAlt,
+  faStroopwafel,
+  faCircleXmark,
+  faPenToSquare
+);
 
 type Props = {
   name: IconName;
