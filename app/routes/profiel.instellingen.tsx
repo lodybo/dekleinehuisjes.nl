@@ -1,7 +1,8 @@
-import { useActionData, useLoaderData } from '@remix-run/react';
+import { useActionData } from '@remix-run/react';
 import type { ActionArgs, LoaderArgs } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { requireUser } from '~/session.server';
+import type { User } from '~/models/user.server';
 import {
   updateUserEmail,
   updateUserName,
@@ -15,11 +16,12 @@ import {
 } from '~/validations';
 import { AccountForm } from '~/components/AccountForm';
 import AuthSettingsForm from '~/components/AuthSettingsForm';
+import { useMatchesData } from '~/utils';
 
 export async function loader({ request }: LoaderArgs) {
-  const user = await requireUser(request);
+  await requireUser(request);
 
-  return json({ user });
+  return json({});
 }
 
 export async function action({ request }: ActionArgs) {
@@ -71,7 +73,9 @@ export async function action({ request }: ActionArgs) {
 }
 
 export default function ProfileEdit() {
-  const { user } = useLoaderData<typeof loader>();
+  const data = useMatchesData('routes/profiel');
+  const user = data?.user as User;
+
   const actionData = useActionData<typeof action>();
 
   return (

@@ -1,19 +1,21 @@
-import { useLoaderData } from '@remix-run/react';
 import type { LoaderArgs } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { requireUser } from '~/session.server';
 import Avatar from '~/components/Avatar';
 import AvatarUploadForm from '~/components/AvatarUploadForm';
 import Editor from '~/components/Editor';
+import { useMatchesData } from '~/utils';
+import type { User } from '~/models/user.server';
 
 export async function loader({ request }: LoaderArgs) {
-  const user = await requireUser(request);
+  await requireUser(request);
 
-  return json({ user });
+  return json({});
 }
 
 export default function ProfileEdit() {
-  const { user } = useLoaderData<typeof loader>();
+  const data = useMatchesData('routes/profiel');
+  const user = data?.user as User;
 
   return (
     <div className="mt-5 max-w-screen-lg px-5">
