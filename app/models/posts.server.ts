@@ -23,3 +23,25 @@ export function getPostBySlug(slug: string) {
     },
   });
 }
+
+export function createPost(
+  title: string,
+  content: string,
+  slug: string,
+  authorId: string,
+  published: boolean
+) {
+  return prisma.post.create({
+    data: {
+      title,
+      content,
+      slug,
+      published,
+      author: {
+        connect: {
+          id: authorId,
+        },
+      },
+    },
+  });
+}

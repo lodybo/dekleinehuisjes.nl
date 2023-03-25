@@ -6,7 +6,7 @@ import FileDropField from '~/components/FileDropField';
 import Modal from '~/components/Modal';
 import Spinner from '~/components/Spinner';
 import Notification from '~/components/Notification';
-import { APIResponse } from '~/types/Responses';
+import type { APIResponse } from '~/types/Responses';
 
 export default function AvatarUploadForm() {
   const upload = useFetcher<APIResponse>();
@@ -32,7 +32,7 @@ export default function AvatarUploadForm() {
       >
         <upload.Form
           className="flex flex-col gap-5"
-          action="/api/images/upload"
+          action="/api/avatar/upload"
           method="post"
           encType="multipart/form-data"
         >

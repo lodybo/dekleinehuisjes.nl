@@ -3,9 +3,9 @@ import { json } from '@remix-run/node';
 import { requireUser } from '~/session.server';
 import Avatar from '~/components/Avatar';
 import AvatarUploadForm from '~/components/AvatarUploadForm';
-import Editor from '~/components/Editor';
 import { useMatchesData } from '~/utils';
 import type { User } from '~/models/user.server';
+import BiographyEditor from '~/components/BiographyEditor';
 
 export async function loader({ request }: LoaderArgs) {
   await requireUser(request);
@@ -33,11 +33,7 @@ export default function ProfileEdit() {
           <AvatarUploadForm />
 
           <h2 className="text-display-m">Jouw bio</h2>
-          <Editor
-            name="bio"
-            action="/api/profiel/bio"
-            initialValue={user.bio}
-          />
+          <BiographyEditor biography={user.bio} />
         </div>
       </div>
     </div>

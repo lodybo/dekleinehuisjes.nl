@@ -12,17 +12,19 @@ export default function PostList({ posts }: Props) {
     <ul className="w-full space-y-6">
       {posts.map((post) => (
         <li key={post.id} className="flex w-full flex-row justify-between">
-          <h2 className="text-display-s">
+          <h2 className="flex-1 text-display-s">
             <Anchor to={`/posts/${post.slug}`}>{post.title}</Anchor>
           </h2>
 
           {!post.published ? (
-            <span className="rounded-lg border border-secondary-50 px-5 py-2.5 capitalize text-secondary-100">
-              Ongepubliceerd
-            </span>
+            <div className="flex flex-1 justify-center">
+              <span className="rounded-lg border border-secondary-50 px-5 py-2.5 capitalize text-secondary-100">
+                Ongepubliceerd
+              </span>
+            </div>
           ) : null}
 
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-1 flex-row justify-end gap-2">
             <Link to={`/posts/${post.slug}/bewerken`}>
               <button className="h-full rounded-lg bg-blue px-5 text-white">
                 <Icon prefix="far" name="pen-to-square" />

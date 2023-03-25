@@ -19,3 +19,7 @@ interface FormErrorResponse extends BaseAPIResponse {
 }
 
 export type FormResponse = SuccessResponse | FormErrorResponse;
+
+export type ImageUploadResponse = {
+  location: string;
+};

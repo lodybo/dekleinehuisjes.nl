@@ -17,7 +17,7 @@ export default function ProfielPosts() {
   return (
     <div className="flex flex-col space-y-6">
       <div className="w-32 self-end">
-        <Button primary href="/post/nieuw">
+        <Button primary href="/profiel/post/nieuw">
           + Nieuwe post
         </Button>
       </div>
