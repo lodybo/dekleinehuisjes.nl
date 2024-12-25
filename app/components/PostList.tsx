@@ -25,7 +25,7 @@ export default function PostList({ posts }: Props) {
           ) : null}
 
           <div className="flex flex-1 flex-row justify-end gap-2">
-            <Link to={`/posts/${post.slug}/bewerken`}>
+            <Link to={`/post/${post.slug}/bewerken`}>
               <button className="h-full rounded-lg bg-blue px-5 text-white">
                 <Icon prefix="far" name="pen-to-square" />
               </button>
